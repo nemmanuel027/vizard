@@ -1,0 +1,163 @@
+<html ng-app="vizard" ng-controller="newprojectCtrl" ng-cloak="">
+
+<head>
+  <title>vizard - Visual Wizard</title>
+  <link rel="stylesheet" href="../support/bootstrap.min.css">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <link rel="stylesheet" href="../support/font-awesome/css/font-awesome.css">
+  <style>
+
+    body{
+      background-color: rgb(202, 202, 202) !important;
+    }
+
+    .navbard {
+      background-color: rgb(41, 152, 255);
+      padding: 0px 0px 0px 25px;
+      height: 50px;
+      color: white !important;
+    }
+
+    .navbard-brand {
+      background-color: #0c5a84;
+      position: absolute;
+      padding: 15px;
+      font-weight: bolder;
+    }
+
+    .navbard-nav {
+      margin-left: 150px;
+      height: 100%;
+    }
+
+    .navd-item,
+    .navd-link {
+      height: 100%;
+      color: white !important;
+    }
+
+    .activeLink {
+      background-color: #398cda;
+    }
+
+    .navd-link {
+      padding: 15px 18px 0px 18px !important;
+    }
+
+    .btnSignout {
+      padding: 10px 10px 0px 0px;
+    }
+
+    .bodyPage {
+      font-family: "Montserrat";
+      margin-top: 50px;
+      padding: 20px;
+    }
+
+    .footerClass
+    {background-color: #b1b1b1;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+    padding-right: 20px;
+    border-top: 1px solid rgb(250, 245, 235);}
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900|Ubuntu:400,500,700" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm navbar-dark fixed-top navbard">
+    <a class="navbar-brand active navbard-brand" href="#">VIZARD</a>
+    <ul class="navbar-nav navbard-nav">
+      <li class="nav-item navd-item">
+        <a class="nav-link navd-link" href="myprojects">My Projects</a>
+      </li>
+      <li class="nav-item navd-item">
+        <a class="nav-link navd-link activeLink">New Project</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav navbard-nav ml-auto">
+      <li class="nav-item navd-item btnSignout">
+        <button ng-click="powerOff();" class="btn btn-danger">
+          <i class="fa fa-power-off" aria-hidden="true"></i>
+        </button>
+      </li>
+    </ul>
+  </nav>
+<div ng-if="pageOneDisplay=='yes'">
+    <div class="bodyPage text-left">
+      <h4>Choose Components:</h4>
+      <div ng-repeat-start="item in items" class="card">
+        <div class="card-header">
+          <input type="checkbox" ng-model="itemIndex[item.id]">
+          <b>{{item.title}}</b>
+        </div>
+        <div class="card-body">
+          <iframe style="width:100%;" src="{{item.path}}"frameborder="0"></iframe>
+        </div>
+      </div>
+      <br ng-repeat-end>
+
+    </div>
+    
+    <div class="footerClass">
+        <button class="btn btn-primary pull-right" ng-click="nextPage()">Next</button>
+    </div>
+  </div>
+
+  <div ng-if="pageTwoDisplay=='yes'">
+      <div class="bodyPage text-left">
+
+        
+      <h4>Arrange Components:</h4>
+      <div ng-repeat-start="item in selectedItems " class="card">
+          <div class="card-header">
+            <b>{{item.title}}</b>
+           <button class="btn pull-right" ng-click="shiftUp(item.index)"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+           <button class="btn pull-right" ng-click="shiftDown(item.index)"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <br ng-repeat-end>
+
+
+        </div>
+    
+        <div class="footerClass">
+            <button class="btn btn-primary pull-left" ng-click="previousPage()">Previous</button>
+            <button class="btn btn-success pull-right" ng-click="generate()">Generate</button>
+        </div>
+  </div>
+
+  
+  <div ng-if="pageThreeDisplay=='yes'">
+      <div class="bodyPage text-left">
+
+        <div class="card" style="height: 80%">
+          <div class="card-header">Preview</div>
+          <div class="body" style="height: 100%;width: 100%">
+              <iframe style="height: 100%;width: 100%;" src="../html_generated/index.html" frameborder="0"></iframe>
+          </div>
+        </div>
+        
+
+
+        </div>
+    
+        <div class="footerClass">
+            <a class="btn btn-success pull-right" href="../html_generated/index.html" download="index.html">Download</a>
+        </div>
+  </div>
+
+  <script src="../support/jquery_slim.min.js"></script>
+  <script src="../support/popper.min.js"></script>
+  <script src="../support/bootstrap.min.js"></script>
+  <script src="../support/angular.min.js"></script>
+  <script src="../javascripts/newproject.js"></script>
+  <script>
+</script>
+</body>
+
+</html>

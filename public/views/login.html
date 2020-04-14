@@ -1,0 +1,191 @@
+<html ng-app="vizard" ng-controller="loginCtrl" ng-cloak="">
+
+<head>
+  <title>vizard - Visual Wizard</title>
+  <link rel="stylesheet" href="../support/bootstrap.min.css">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <link rel="stylesheet" href="../support/font-awesome/css/font-awesome.css">
+  <style>
+    body {
+      background: linear-gradient(to right, rgb(47, 128, 237), rgb(86, 204, 242));
+    }
+
+
+
+
+    svg {
+      font-weight: bold;
+      max-width: 600px;
+      height: auto;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .flip-container {
+      position: absolute;
+      right: 5%;
+      top: 15%;
+      perspective: 1000;
+    }
+
+    .flipper {
+      padding: 30px;
+      width: 300px;
+      height: 350px;
+      position: relative;
+      background: #229fe6;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px;
+
+      transition: 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .front,
+    .back {
+      /*background-color: rgba(0,0,0,.3);*/
+      position: absolute;
+      padding: 10px 30px;
+      top: 0;
+      left: 0;
+      right: 0;
+
+      backface-visibility: hidden;
+    }
+
+    .front {
+      z-index: 2;
+      /* for firefox 31 */
+      transform: rotateY(0deg);
+    }
+
+    .back {
+      transform: rotateY(180deg);
+    }
+
+    .flip {
+      transform: rotateY(180deg);
+    }
+
+    input {
+      width: 100%;
+      margin-bottom: 15px;
+      height: 40px;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+
+    .title {
+    border-radius: 67px;
+    margin-left: 15%;
+    color: #626567;
+    width: 70%;
+    position: relative;
+    margin-top: -2rem;
+    text-align: center;
+    font-size: 25px;
+    padding: 5px;
+    font-size: bolder;
+    font-weight: bolder;
+    background-color: whitesmoke;
+    -webkit-box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.75);
+    font-family: Verdana,sans-serif;
+}
+    
+
+    .theForm {
+      margin-top: 2.5rem;
+    }
+
+    .floatRight{
+      float: right;
+      background-color: #29c0e8;
+      border: #29c0e8;
+    }
+    .floatRight:hover, .floatRight:focus{
+      background-color: #29c0e8;
+      border: #29c0e8;
+    }
+  </style>
+</head>
+
+<body>
+  <svg viewbox="0 0 100 20" style="position: absolute;top: 12%; left:0%">
+    <defs>
+      <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="5%" stop-color="#326384" />
+        <stop offset="95%" stop-color="#123752" />
+      </linearGradient>
+      <pattern id="wave" x="0" y="0" width="120" height="20" patternUnits="userSpaceOnUse">
+        <path id="wavePath" d="M-40 9 Q-30 7 -20 9 T0 9 T20 9 T40 9 T60 9 T80 9 T100 9 T120 9 V20 H-40z" mask="url(#mask)" fill="url(#gradient)">
+          <animateTransform attributeName="transform" begin="0s" dur="1.5s" type="translate" from="0,0" to="40,0" repeatCount="indefinite"
+          />
+        </path>
+      </pattern>
+    </defs>
+    <text text-anchor="middle" x="50" y="15" font-size="17" fill="url(#wave)" fill-opacity="0.6">VIZARD</text>
+    <text text-anchor="middle" x="50" y="15" font-size="17" fill="url(#gradient)" fill-opacity="0.1">VIZARD</text>
+  </svg>
+
+
+  <div class="flip-container">
+    <div class="flipper" id="flipper">
+      <div class="front">
+        <h1 class="title">SIGN IN</h1>
+        <form class="theForm">
+          <input type="text" placeholder="Username" class="form-control" ng-model="signInUname"/>
+          <input type="password" placeholder="Password" class="form-control" ng-model="signInPword"/>
+          <input type="button" value="Login" class="btn btn-primary" ng-click="signIn(signInUname,signInPword)"/>
+        </form>
+        <a class="btn btn-primary floatRight" id="loginButton" href="#">SIGN UP <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="back">
+        <h1 class="title">SIGN UP</h1>
+        <form class="theForm">
+          <input type="text" placeholder="Username" class="form-control" ng-model="signUpUname"/>
+          <input type="text" placeholder="Password" class="form-control" ng-model="signUpPword"/>
+          <input type="button" value="Register" class="btn btn-primary" ng-click="signUp(signUpUname,signUpPword)"/>
+        </form>
+        <a class="btn btn-primary floatRight" id="registerButton" href="#" >SIGN IN <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="../support/jquery_slim.min.js"></script>
+  <script src="../support/popper.min.js"></script>
+  <script src="../support/bootstrap.min.js"></script>
+  <script src="../support/angular.min.js"></script>
+  <script src="../javascripts/login.js"></script>
+  <script>
+    var loginButton = document.getElementById("loginButton");
+    var registerButton = document.getElementById("registerButton");
+
+    loginButton.onclick = function () {
+      document.querySelector("#flipper").classList.toggle("flip");
+    }
+
+    registerButton.onclick = function () {
+      document.querySelector("#flipper").classList.toggle("flip");
+    }
+
+  </script>
+</body>
+
+</html>
